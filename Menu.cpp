@@ -1,9 +1,10 @@
-#include"Menu.hpp"
-#include<iostream>
+#include "Menu.hpp"
+#include <iostream>
 #include <cstring>
+
 using namespace std;
 char lines[]="Line";
-char circles[10]="Circle";
+char circles[10]="B_SPLINE";
 char curves[10]="Pencil";
 char erase[10]="Eraser";
 char poly[10]="Polygons";
@@ -16,6 +17,7 @@ char undo[5]="Undo";
 char text[6]="Text";
 char select[10]="Select";
 char brush[10]="Brushes";
+char save[20]="Save(.bmp)";
 int highlightmode=0;
 unsigned int i;
 int color_flag=0;
@@ -541,6 +543,7 @@ void drawMenu(GLenum Mode)
      drawPoly(Mode,height-200,height-250,1005);
      drawPoly(Mode,height-250,height-300,1006);
      drawPoly(Mode,height-300,height-350,1019);//text
+     drawPoly(Mode,height-350,height-400,1020);//save
 
      //horizontal tool box
 
@@ -576,7 +579,7 @@ void drawMenu(GLenum Mode)
      drawPoly(GL_RENDER,height-200,height-250,1005,true);
      drawPoly(GL_RENDER,height-250,height-300,1006,true);
      drawPoly(GL_RENDER,height-300,height-350,1019,true);
-     
+     drawPoly(Mode,height-350,height-400,1020,true);//save
   
      //horizontal tool box
 
@@ -631,9 +634,9 @@ void drawMenu(GLenum Mode)
      for(i=0;i<strlen(text);i++)
           glutBitmapCharacter(GLUT_BITMAP_9_BY_15,text[i]);
 
-	/*glRasterPos2i(145,85);
-     for(i=0;i<strlen(poly);i++)
-		glutBitmapCharacter(GLUT_BITMAP_9_BY_15,poly[i]);*/
+	glRasterPos2i(10,height-380);
+     for(i=0;i<strlen(save);i++)
+		glutBitmapCharacter(GLUT_BITMAP_9_BY_15,save[i]);
 
      /*glRasterPos2i(250,85);
      for(i=0;i<strlen(shapes);i++)

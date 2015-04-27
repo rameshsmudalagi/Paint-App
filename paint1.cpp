@@ -1,15 +1,15 @@
-#include<iostream>
-#include<stdio.h>
-#include<math.h>
-#include<stdlib.h>
-
-#include<GL/glut.h>
-#include"Menu.cpp"
+#include <iostream>
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+#include <SOIL.h>
+#include <GL/glut.h>
+#include "Menu.cpp"
 #define MAX_ITEMS 10000
 using namespace std; 
 
 
-enum Type {LINES,CURVES,CIRCLE,POLYGON,TEXT,ERASER,COLOR,CLEAR,UNDO,CIRCLE_POLY,SHAPES};
+enum Type {LINES,CURVES,CIRCLE,POLYGON,TEXT,ERASER,COLOR,CLEAR,UNDO,CIRCLE_POLY,SHAPES,SAVE};
 
 int itemCount=-1;
 int text_itemCount=-1;
@@ -118,6 +118,7 @@ void text_key(unsigned char key,int x,int y)
     	texts[text_itemCount].text[texts[text_itemCount].char_count++]=key;
     	texts[text_itemCount].text[texts[text_itemCount].char_count]='\0';
     }
+  //  if(key== 'CTRL +'s'')
     if(key==27)
     	exit(0);
     glutPostRedisplay();
@@ -257,6 +258,7 @@ void mymouse(int b,int s,int x,int y)
 				case 1005:menu_flag = CLEAR;itemCount=0;text_itemCount=-1;glutPostRedisplay();break;
 				case 1006:menu_flag = UNDO;break;
 				case 1019:menu_flag = TEXT;break;
+				case 1020:menu_flag = SAVE;break;
 
 		 		//color selected
 		 		case 1007:color_pre[0]=0;color_pre[1]=0;color_pre[2]=0;break;
@@ -299,6 +301,7 @@ void mymouse(int b,int s,int x,int y)
 		}
 	if(b==GLUT_LEFT_BUTTON && s==GLUT_DOWN )
 	{
+		cout<<"x"<<x<<" y="<<y<<endl;
 		items[itemCount].colors[0]=color_pre[0];
 		items[itemCount].colors[1]=color_pre[1];
 		items[itemCount].colors[2]=color_pre[2];
@@ -400,8 +403,16 @@ void mymouse(int b,int s,int x,int y)
 		
 						
 						break;
-
+			case SAVE:
+					int  save_result = SOIL_save_screenshot
+   					 (
+    					"awesomenessity.bmp",
+    					SOIL_SAVE_TYPE_BMP,
+    					100+1.7, 100+1.7, width-100, height-100
+    				 );
+    
 		}
+	  
 	}
 
 
@@ -411,6 +422,8 @@ void mymotionfunc(int x,int y)
 	y=height-y;
 	
    		int current = itemCount - 1;
+   		if(x > 100 && y > 100 )
+   		{
    		switch(menu_flag)
 		{
 		case LINES :
@@ -433,7 +446,7 @@ void mymotionfunc(int x,int y)
 	    case SHAPES:
 	    			items[current].points[1].setpoint(x,y);break;
 		}
-
+	}
 	glutPostRedisplay();
 
 }
@@ -471,10 +484,23 @@ void mouse_Cursor(int x,int y)
 		glutSetCursor(GLUT_CURSOR_TEXT);
 	}
 	else
-		glutSetCursor(GLUT_CURSOR_ERASER);
+		glutSetCursor(GLUT_CURSOR_RIGHT_ARROW);
 }
 
+void special_keys(int key,int x,int y)
+{
 
+	int mod_key = glutGetModifiers();
+	if (mod_key == GLUT_ACTIVE_CTRL)
+    {
+        int  save_result = SOIL_save_screenshot
+   					 (
+    					"awesomenessity.bmp",
+    					SOIL_SAVE_TYPE_BMP,
+    					100+1.7, 100+1.7, width-100, height-100
+    				 );
+    }
+}
 //main function
 int main(int argc,char* argv[])
 {
@@ -490,6 +516,7 @@ int main(int argc,char* argv[])
 	glutMotionFunc(mymotionfunc);
 	glutPassiveMotionFunc(mouse_Cursor);
 	glutKeyboardFunc(text_key);
+	glutSpecialFunc(special_keys);
 	glutReshapeFunc(reshape);
 	glutMainLoop();
 	return 0;

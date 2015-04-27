@@ -6,7 +6,7 @@ CC=g++
 
 CFLAGS=-c -Wall
 FLAG=-o $(PNAME).o -g3 -Wall -c
-FLAF3= -lopengl32 -lfreeglut -lglu32 -lgdi32
+FLAF3= -lSOIL -lopengl32 -lfreeglut -lglu32 -lgdi32 
 all:  $(PNAME).o
 	$(CC)  $(PNAME).o -o $(PNAME) $(FLAF3)
 
