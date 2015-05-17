@@ -4,7 +4,7 @@
 
 using namespace std;
 char lines[]="Line";
-char circles[10]="B_SPLINE";
+char circles[10]="Cirlce";
 char curves[10]="Pencil";
 char erase[10]="Eraser";
 char poly[10]="Polygons";
@@ -18,28 +18,33 @@ char text[6]="Text";
 char select[10]="Select";
 char brush[10]="Brushes";
 char save[20]="Save(.bmp)";
+char colorw[20]="Colors";
+
 int highlightmode=0;
+
 unsigned int i;
 int color_flag=0;
 extern int menu;
 extern float color_pre[3];
 
+//function to draw the toolbox
 void drawPoly(GLenum Mode,int y1,int y2,int num,bool outline=false)
 {
      if(Mode==GL_SELECT)
      {    
-          glLoadName(num);
-          highlightmode=1;
+        glLoadName(num);
+        highlightmode=1;
      }
      if(outline)
      {
-          glColor3f(0,0,0);
-          glBegin(GL_LINE_LOOP);
+        glColor3f(0,0,0);
+        glBegin(GL_LINE_LOOP);
      }
-     else{
-          glColor3f(0.55,.55,.55);
-     glBegin(GL_POLYGON);
-}
+     else
+     {
+        glColor3f(0.55,.55,.55);
+     	glBegin(GL_POLYGON);
+    }
 
      
      glVertex2f(0,y1);
@@ -51,10 +56,11 @@ void drawPoly(GLenum Mode,int y1,int y2,int num,bool outline=false)
      
 }
 
+//function to draw the brushes
 void draw_brushes(GLenum Mode)
 {
+	 //PointSize(20)
      if(Mode==GL_SELECT){glLoadName(5001);}
-     //glPointSize(20);
      glColor3f(0,0,0);
      glBegin(GL_POLYGON);
      glVertex2f((width/2)-115+5,50);
@@ -63,9 +69,8 @@ void draw_brushes(GLenum Mode)
      glVertex2f((width/2)-115+5,70);
      glEnd();
 
-
+     //PointSize(10)
      if(Mode==GL_SELECT){glLoadName(5002);}
-     //glPointSize(10);
      glColor3f(0,0,0);
      glBegin(GL_POLYGON);
      glVertex2f((width/2)-82+10+5,50);
@@ -74,9 +79,8 @@ void draw_brushes(GLenum Mode)
      glVertex2f((width/2)-82+10+5,68);
      glEnd();
 
-
+     //PointSize(8)
      if(Mode==GL_SELECT){glLoadName(5003);}
-     //glPointSize(8);
      glColor3f(0,0,0);
      glBegin(GL_POLYGON);
      glVertex2f((width/2)-61+10+20+5,50);
@@ -86,9 +90,8 @@ void draw_brushes(GLenum Mode)
      glEnd();
 
 
-
+     //PointSize(5)
      if(Mode==GL_SELECT){glLoadName(5004);}
-     //glPointSize(5);
      glColor3f(0,0,0);
      glBegin(GL_POLYGON);
      glVertex2f((width/2)-120+3,15);
@@ -96,75 +99,8 @@ void draw_brushes(GLenum Mode)
      glVertex2f((width/2)-130,30);
      glVertex2f((width/2)-120+3,30);
      glEnd();
-
-
-
-     /*if(Mode==GL_SELECT){glLoadName(5005);}
-     //glPointSize(14);
-     glColor3f(0,0,0);
-     glBegin(GL_POLYGON);
-     glVertex2f((width/2)-120+50+3,15);
-     glVertex2f((width/2)-130+50-5,15);
-     glVertex2f((width/2)-130+50-5,28);
-     glVertex2f((width/2)-120+50+3,28);
-     glEnd();
-*/
-
-
-     if(Mode==GL_SELECT){glLoadName(5005);}
-     //glPointSize(3);
-     glColor3f(0,0,0);
-     glBegin(GL_POLYGON);
-     glVertex2f((width/2)-120+50+40,15);
-     glVertex2f((width/2)-130+50+40,15);
-     glVertex2f((width/2)-130+50+40,25);
-     glVertex2f((width/2)-120+50+40,25);
-     glEnd();
-
-
-/*
-     if(Mode==GL_SELECT){"enters1";glLoadName(5002);}
-     glPointSize(18);
-     glColor3f(0,0,0);
-     glBegin(GL_POINTS);
-     glVertex2f((width/2)-75,60);
-     glEnd();*/
-
-
-  /*   if(Mode==GL_SELECT){glLoadName(5003);}
-     glPointSize(16);
-     glColor3f(0,0,0);
-     glBegin(GL_POINTS);
-     glVertex2f((width/2)-35,60);
-     glEnd();
-*/
-/*
-     if(Mode==GL_SELECT){glLoadName(5004);}
-     glPointSize(14);
-     glColor3f(0,0,0);
-     glBegin(GL_POINTS);
-     glVertex2f((width/2)-115,20);
-     glEnd();*/
-
-
-/*
-     if(Mode==GL_SELECT){glLoadName(5005);}
-     glPointSize(12);
-     glColor3f(0,0,0);
-     glBegin(GL_POINTS);
-     glVertex2f((width/2)-75,20);
-     glEnd();*/
-
-
-
-     /*if(Mode==GL_SELECT){glLoadName(5006);}
-     glPointSize(10);
-     glColor3f(0,0,0);
-     glBegin(GL_POINTS);
-     glVertex2f((width/2)-35,20);
-     glEnd();
-*/
-     glRasterPos2i((width/2)-110,85);
+	
+	 glRasterPos2i((width/2)-110,85);
      for(i=0;i<strlen(brush);i++)
           glutBitmapCharacter(GLUT_BITMAP_9_BY_15,brush[i]);
 
@@ -179,18 +115,18 @@ void drawshaes_menu(GLenum Mode)
           glColor3f(1,1,1);
           glBegin(GL_POLYGON);
           
-               glVertex2f(110,60-10);
-               glVertex2f(130,60-10);
-               glVertex2f(130,80-10);
-               glVertex2f(110,80-10);
+               glVertex2f(110,60);
+               glVertex2f(120,50);
+               glVertex2f(130,60);
+               glVertex2f(120,70);
           glEnd();
           glColor3f(0,0,0);
           glBegin(GL_LINE_LOOP);
           
-               glVertex2f(110,60-10);
-               glVertex2f(130,60-10);
-               glVertex2f(130,80-10);
-               glVertex2f(110,80-10);
+               glVertex2f(110,60);
+               glVertex2f(120,50);
+               glVertex2f(130,60);
+               glVertex2f(120,70);
           glEnd();
 
 
@@ -312,24 +248,25 @@ void drawshaes_menu(GLenum Mode)
      for(i=0;i<strlen(poly);i++)
           glutBitmapCharacter(GLUT_BITMAP_9_BY_15,poly[i]);
 
+     
      //shapes series:3001
 
      if(Mode==GL_SELECT){ glLoadName(3001);}//N=4
           glColor3f(1,1,1);
           glBegin(GL_POLYGON);
           
-               glVertex2f(240,60-10);
-               glVertex2f(260,60-10);
-               glVertex2f(260,80-10);
-               glVertex2f(240,80-10);
+               glVertex2f(240,60);
+               glVertex2f(250,50);
+               glVertex2f(260,60);
+               glVertex2f(250,70);
           glEnd();
           glColor3f(0,0,0);
           glBegin(GL_LINE_LOOP);
           
-               glVertex2f(240,60-10);
-               glVertex2f(260,60-10);
-               glVertex2f(260,80-10);
-               glVertex2f(240,80-10);
+               glVertex2f(240,60);
+               glVertex2f(250,50);
+               glVertex2f(260,60);
+               glVertex2f(250,70);
           glEnd();
 
 
@@ -420,30 +357,6 @@ void drawshaes_menu(GLenum Mode)
           glEnd();
 }
 
-void color_selected()
-{
-     switch(menu)
-     {
-          case 1007:glColor3f(0,0,0);break;
-          case 1008:glColor3f(1,0.8,1);break;
-          case 1009:glColor3f(0,0,1);break;
-          case 1010:glColor3f(0,1,0);break;
-          case 1011:glColor3f(1,0,0);break;
-          case 1012:glColor3f(1,1,0);break;
-          case 1013:glColor3f(1,0,1);break;
-          case 1014:glColor3f(0,1,1);break;
-          case 1015:glColor3f(0.25,0,0.25);break;
-          case 1016:glColor3f(0,0.25,0);break;
-          case 1017:glColor3f(0,0,0.25);break;
-          case 1018:glColor3f(0.25,0,0);break;
-     }
-          glBegin(GL_POLYGON);
-          glVertex2f((width/2+260)-2,10-3);
-          glVertex2f((width/2+300)-2,10-3);
-          glVertex2f((width/2+300)-2,70-3);
-          glVertex2f((width/2+260)-2,70-3);
-          glEnd();
-}
 
 
 void drawPoly_Hor(GLenum Mode,int y1,int y2,int x1,int x2,int color_flag,int num,bool outline=false)
@@ -482,17 +395,40 @@ void drawPoly_Hor(GLenum Mode,int y1,int y2,int x1,int x2,int color_flag,int num
      glVertex2f(x2,y2);
      glVertex2f(x1,y2);
      glEnd();
+     
 
+    /* switch(menu)
+     {
+          case 1007:glColor3f(0,0,0);break;
+          case 1008:glColor3f(1,0.8,1);break;
+          case 1009:glColor3f(0,0,1);break;
+          case 1010:glColor3f(0,1,0);break;
+          case 1011:glColor3f(1,0,0);break;
+          case 1012:glColor3f(1,1,0);break;
+          case 1013:glColor3f(1,0,1);break;
+          case 1014:glColor3f(0,1,1);break;
+          case 1015:glColor3f(0.25,0,0.25);break;
+          case 1016:glColor3f(0,0.25,0);break;
+          case 1017:glColor3f(0,0,0.25);break;
+          case 1018:glColor3f(0.25,0,0);break;
+     }*/
+
+		  /*glBegin(GL_POLYGON);
+          glVertex2f((width/2+260)-2,10-3);
+          glVertex2f((width/2+300)-2,10-3);
+          glVertex2f((width/2+300)-2,70-3);
+          glVertex2f((width/2+260)-2,70-3);
+          glEnd();*/
+
+          //color_pan(color_flag);
+         
     
-
-         //selected color display
-     color_selected();
 }
 
 void drawMenu(GLenum Mode)
 {
 	
-	glColor3f(0,0,0);
+	 glColor3f(0,0,0);
      glLineWidth(2);
      glBegin(GL_LINES);
      glVertex2f(1,0);
@@ -526,11 +462,11 @@ void drawMenu(GLenum Mode)
 
      glVertex2f((width/2)-140,0);//brushes
      glVertex2f((width/2)-140,100);
-    
 
-
-     
-     glEnd();
+     glVertex2f(width/2,75);//colors
+     glVertex2f(width/2+320,75);
+   
+      glEnd();
 
   
      //selecting
@@ -538,12 +474,14 @@ void drawMenu(GLenum Mode)
      //vertical tool box
      drawPoly(Mode,height,height-50,1001);
      drawPoly(Mode,height-50,height-100,1002);
-     drawPoly(Mode,height-100,height-150,1003);
-     drawPoly(Mode,height-150,height-200,1004);
-     drawPoly(Mode,height-200,height-250,1005);
-     drawPoly(Mode,height-250,height-300,1006);
-     drawPoly(Mode,height-300,height-350,1019);//text
-     drawPoly(Mode,height-350,height-400,1020);//save
+     drawPoly(Mode,height-100,height-150,1021);
+
+     drawPoly(Mode,height-150,height-200,1003);
+     drawPoly(Mode,height-200,height-250,1004);
+     drawPoly(Mode,height-250,height-300,1005);
+     drawPoly(Mode,height-300,height-350,1006);
+     drawPoly(Mode,height-350,height-400,1019);//text
+     drawPoly(Mode,height-400,height-450,1020);//save
 
      //horizontal tool box
 
@@ -574,12 +512,14 @@ void drawMenu(GLenum Mode)
      //tool menu
      drawPoly(GL_RENDER,height,height-50,1001,true);
      drawPoly(GL_RENDER,height-50,height-100,1002,true);
-     drawPoly(GL_RENDER,height-100,height-150,1003,true);
-     drawPoly(GL_RENDER,height-150,height-200,1004,true);
-     drawPoly(GL_RENDER,height-200,height-250,1005,true);
-     drawPoly(GL_RENDER,height-250,height-300,1006,true);
-     drawPoly(GL_RENDER,height-300,height-350,1019,true);
-     drawPoly(Mode,height-350,height-400,1020,true);//save
+     drawPoly(GL_RENDER,height-100,height-150,1021,true);
+
+     drawPoly(GL_RENDER,height-150,height-200,1003,true);
+     drawPoly(GL_RENDER,height-200,height-250,1004,true);
+     drawPoly(GL_RENDER,height-250,height-300,1005,true);
+     drawPoly(GL_RENDER,height-300,height-350,1006,true);
+     drawPoly(GL_RENDER,height-350,height-400,1019,true);
+     drawPoly(Mode,height-400,height-450,1020,true);//save
   
      //horizontal tool box
 
@@ -614,42 +554,38 @@ void drawMenu(GLenum Mode)
      for(i=0;i<strlen(curves);i++)
 		glutBitmapCharacter(GLUT_BITMAP_9_BY_15,curves[i]);
 
-	glRasterPos2i(20,height-130);
+     glRasterPos2i(20,height-130);
+     for(i=0;i<strlen(square);i++)
+          glutBitmapCharacter(GLUT_BITMAP_9_BY_15,square[i]);
+     
+
+
+	glRasterPos2i(20,height-180);
      for(i=0;i<strlen(circles);i++)
 		glutBitmapCharacter(GLUT_BITMAP_9_BY_15,circles[i]);
 
-	glRasterPos2i(20,height-180);
+	glRasterPos2i(20,height-230);
      for(i=0;i<strlen(erase);i++)
 		glutBitmapCharacter(GLUT_BITMAP_9_BY_15,erase[i]);
      
-     glRasterPos2i(20,height-230);
+     glRasterPos2i(20,height-280);
      for(i=0;i<strlen(clear);i++)
 		glutBitmapCharacter(GLUT_BITMAP_9_BY_15,clear[i]);
 
-	 glRasterPos2i(20,height-280);
+	 glRasterPos2i(20,height-330);
      for(i=0;i<strlen(undo);i++)
 		glutBitmapCharacter(GLUT_BITMAP_9_BY_15,undo[i]);
 
-     glRasterPos2i(20,height-330);
+     glRasterPos2i(20,height-380);
      for(i=0;i<strlen(text);i++)
           glutBitmapCharacter(GLUT_BITMAP_9_BY_15,text[i]);
 
-	glRasterPos2i(10,height-380);
+	glRasterPos2i(10,height-430);
      for(i=0;i<strlen(save);i++)
 		glutBitmapCharacter(GLUT_BITMAP_9_BY_15,save[i]);
 
-     /*glRasterPos2i(250,85);
-     for(i=0;i<strlen(shapes);i++)
-          glutBitmapCharacter(GLUT_BITMAP_9_BY_15,shapes[i]);*/
+	glRasterPos2i(width/2+100,85);
+     for(i=0;i<strlen(colorw);i++)
+		glutBitmapCharacter(GLUT_BITMAP_9_BY_15,colorw[i]);
 
-
-	
-     /*
-     glRasterPos2i(20,height-420);
-     for(i=0;i<strlen(text);i++)
-		glutBitmapCharacter(GLUT_BITMAP_9_BY_15,text[i]);
-
-	glRasterPos2i(20,height-480);
-     for(i=0;i<strlen(select);i++)
-		glutBitmapCharacter(GLUT_BITMAP_9_BY_15,select[i]);*/
 }
